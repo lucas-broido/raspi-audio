@@ -92,9 +92,8 @@ set_default_device() {
   awk -v var="$sound_device_name" 'NR==2{print "sound_device_name=\"" var "\""}1' set_card_num.sh > "$tmpfile" && mv "$tmpfile" set_card_num.sh
 
   sudo chmod +x set_card_num.sh
-  mv set_card_num.sh /usr/local/bin/set_card_num.sh
   ./set_card_num.sh 
-
+  mv set_card_num.sh /usr/local/bin/set_card_num.sh
 }
 
 add_cron_jobs() {
@@ -105,7 +104,7 @@ add_cron_jobs() {
 main() {
 
   sudo apt update && sudo apt upgrade -y
-  aplay -l
+  aplay -l | grep -e '^card [0-9]'  
   read -p "Which device card number would you like to use for audio output? " device_id
 
   set_default_device $device_id
