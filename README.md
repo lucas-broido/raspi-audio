@@ -69,11 +69,13 @@ This project turns your Raspberry Pi into a Bluetooth speaker and Spotify Connec
 - Installs and configures BlueZ + bluez-alsa for Bluetooth A2DP audio
 - Sets up a custom `bt-agent` systemd service
 - Configures auto-discoverability and reconnect behavior
+- The bluetooth device name will be called the same as your Raspberry Pi host name
 
 ### Spotify
 
 - Installs Raspotify
 - Configures a friendly device name, high bitrate, and volume normalization
+- Your Raspberry Pi will show up as a Spotify device when you open the app
 
 ### Audio Output
 
