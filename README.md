@@ -37,7 +37,7 @@ This project turns your Raspberry Pi into a Bluetooth speaker and Spotify Connec
 1. Clone this repository:
    ```bash
    git clone https://github.com/lucas-broido/raspi-audio.git
-   cd pi-audio-receiver
+   cd raspi-audio
    ```
 
 2. Make the script executable:
