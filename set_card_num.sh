@@ -1,5 +1,5 @@
 #!/bin/bash
-
+sound_device_name=""
 
 # Find the card number of the Focusrite USB interface
 CARD_NUM=$(aplay -l | grep -i "$sound_device_name" | head -n1 | sed -n 's/^card \([0-9]\+\):.*/\1/p')
