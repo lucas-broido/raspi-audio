@@ -4,7 +4,6 @@ install_bluetooth() {
     if [[ ! "$REPLY" =~ ^(yes|y|Y)$ ]]; then return; fi
 
     # Bluetooth Audio ALSA Backend (bluez-alsa-utils)
-    sudo apt update
     sudo apt install -y --no-install-recommends bluez-tools bluez-alsa-utils pulseaudio pulseaudio-module-bluetooth bluez
 
     # Bluetooth settings
