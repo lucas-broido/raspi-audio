@@ -93,7 +93,7 @@ set_default_device() {
 
   sudo chmod +x set_card_num.sh
   ./set_card_num.sh 
-  mv set_card_num.sh /usr/local/bin/set_card_num.sh
+  sudo mv set_card_num.sh /usr/local/bin/set_card_num.sh
 }
 
 add_cron_jobs() {
