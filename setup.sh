@@ -6,11 +6,12 @@ install_bluetooth() {
     # Bluetooth Audio ALSA Backend (bluez-alsa-utils)
     sudo apt install -y --no-install-recommends bluez-tools bluez-alsa-utils pulseaudio pulseaudio-module-bluetooth bluez
 
-    # Bluetooth settings
+    # Bluetooth settings with low-latency optimizations
     sudo tee /etc/bluetooth/main.conf >/dev/null <<'EOF'
 [General]
 Class = 0x200414
 DiscoverableTimeout = 0
+FastConnectable = true
 
 [Policy]
 AutoEnable=true
@@ -64,6 +65,26 @@ EOF
     sudo tee /etc/udev/rules.d/99-bluetooth-udev.rules >/dev/null <<'EOF'
 SUBSYSTEM=="input", GROUP="input", MODE="0660"
 KERNEL=="input[0-9]*", RUN+="/usr/local/bin/bluetooth-udev"
+EOF
+
+    # PulseAudio configuration for lower latency
+    sudo mkdir -p /etc/pulse
+    sudo tee -a /etc/pulse/daemon.conf >/dev/null <<'EOF'
+
+# Low latency settings for Bluetooth audio
+default-fragments = 2
+default-fragment-size-msec = 5
+resample-method = speex-float-1
+enable-remixing = no
+remixing-produce-lfe = no
+remixing-consume-lfe = no
+EOF
+
+    # Load Bluetooth module with lower latency
+    sudo tee /etc/pulse/default.pa.d/bluetooth-latency.pa >/dev/null <<'EOF'
+.ifexists module-bluetooth-discover.so
+load-module module-bluetooth-discover a2dp_config="ldac_eqmid=hq ldac_fmt=f32 sbc_min_bp=53 sbc_max_bp=53"
+.endif
 EOF
 }
 
