@@ -95,7 +95,25 @@ Two cron jobs are added:
 ---
 
 ## 🧪 Troubleshooting
+### Bluetooth device not visible
 
+If your device isn't showing up on Bluetooth:
+```bash
+# Check if Bluetooth is blocked by RF-kill
+rfkill list
+
+# Unblock if needed
+sudo rfkill unblock bluetooth
+
+# Check Bluetooth status
+bluetoothctl show | grep -E "Powered|Discoverable"
+hciconfig hci0
+
+# Restart the bt-agent service
+sudo systemctl restart bt-agent@hci0.service
+```
+
+### Audio issues
 - If audio doesn’t work, try:
   ```bash
   aplay -l

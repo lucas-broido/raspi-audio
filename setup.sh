@@ -24,6 +24,8 @@ Requires=bluetooth.service
 After=bluetooth.service
 
 [Service]
+ExecStartPre=/usr/sbin/rfkill unblock bluetooth
+ExecStartPre=/bin/hciconfig %I up
 ExecStartPre=/usr/bin/bluetoothctl discoverable on
 ExecStartPre=/bin/hciconfig %I piscan
 ExecStartPre=/bin/hciconfig %I sspmode 1
